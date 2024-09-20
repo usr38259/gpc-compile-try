@@ -1,0 +1,23 @@
+749a750,751
+> #ifndef __MINGW_VERSION
+> 
+755a758,772
+> #else
+> 
+> #define tagged_printf(FMT, ARG, TAG) do {		\
+>   int count_;						\
+>   char buf_ [256];					\
+>   count_ = snprintf (buf_, sizeof(buf_)/sizeof(buf_[0]),\
+> 	"  " FMT ",", ARG);				\
+>   if (count_ < sizeof(buf_)/sizeof(buf_[0])) {		\
+>   fwrite (buf_, count_, 1, stdout);			\
+>   printf ("%*s/* %s */\n", 27 - count_, "", TAG); }	\
+>   else internal_error ("genmodes: tagged_printf(): buffer too small"); \
+> } while (0)
+> 
+> #endif
+> 
+787a805,807
+> #ifdef __MINGW_VERSION
+> 	count_ = strlen (m->name) + 7;
+> #endif
